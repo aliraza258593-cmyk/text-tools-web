@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sentence Simplifier - Make Your Writing Clear</title>
+    <meta name="description"
+        content="Simplify complex sentences and improve readability with our free online sentence simplifier tool." />
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="/" class="logo">
+                    <span>✨ TextTools</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/about/">About</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Sentence Simplifier</h1>
+                <p>Make your writing easier to understand. Remove jargon and complex words.</p>
+            </div>
+        </section>
+
+        <section class="container tool-container">
+            <div class="input-group">
+                <label for="text-input" style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Enter your
+                    text:</label>
+                <textarea id="text-input" rows="5" placeholder="Paste complex text here..."></textarea>
+                <button id="simplify-btn" class="primary-btn" style="width: 100%;">Simplify Text</button>
+            </div>
+
+            <div id="results" class="result-box hidden">
+                <h3 style="margin-bottom: 0.5rem;">Simplified Text:</h3>
+                <p id="output-text" style="white-space: pre-wrap;"></p>
+            </div>
+        </section>
+
+        <!-- AdSense Placeholder -->
+        <div class="container"
+            style="text-align: center; margin: 2rem 0; background: var(--border); padding: 1rem; border-radius: 0.5rem;">
+            <p style="color: var(--text-scnd); font-size: 0.875rem;">Advertisement</p>
+        </div>
+
+        <section class="container" style="max-width: 800px; margin-top: 4rem;">
+            <h2>About Sentence Simplifier</h2>
+            <p>This tool identifies complex words and replaces them with simpler alternatives to improve readability
+                scores.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TextTools. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        const textInput = document.getElementById('text-input');
+        const btn = document.getElementById('simplify-btn');
+        const results = document.getElementById('results');
+        const outputText = document.getElementById('output-text');
+
+        // Basic dictionary of complex -> simple words
+        const dictionary = {
+            'utilize': 'use',
+            'demonstrate': 'show',
+            'require': 'need',
+            'facilitate': 'help',
+            'implement': 'start',
+            'subsequently': 'later',
+            'approximately': 'about',
+            'terminate': 'end',
+            'initiate': 'start',
+            'fundamental': 'basic',
+            'nevertheless': 'however',
+            'additionally': 'also',
+            'regarding': 'about',
+            'assistance': 'help',
+            'obtain': 'get',
+            'endeavor': 'try',
+            'ascertain': 'check',
+            'commence': 'start'
+        };
+
+        function simplify() {
+            let text = textInput.value;
+            if (!text.trim()) return;
+
+            // Simple replacement logic (case insensitive)
+            Object.keys(dictionary).forEach(complex => {
+                const simple = dictionary[complex];
+                const regex = new RegExp(`\\b${complex}\\b`, 'gi');
+                text = text.replace(regex, (match) => {
+                    // Preserve capitalization
+                    if (match[0] === match[0].toUpperCase()) {
+                        return simple.charAt(0).toUpperCase() + simple.slice(1);
+                    }
+                    return simple;
+                });
+            });
+
+            outputText.textContent = text;
+            results.classList.remove('hidden');
+        }
+
+        btn.addEventListener('click', simplify);
+    </script>
+</body>
+
+</html>

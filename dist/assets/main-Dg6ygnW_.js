@@ -1,0 +1,1 @@
+console.log("TextTools loaded");

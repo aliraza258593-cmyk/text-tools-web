@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Business Name Generator - Creative Brand Ideas</title>
+    <meta name="description"
+        content="Free AI-powered business name generator. Get creative brand name ideas for your startup, shop, or agency." />
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="/" class="logo">
+                    <span>✨ TextTools</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/about/">About</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Business Name Generator</h1>
+                <p>Find the perfect name for your new business or project.</p>
+            </div>
+        </section>
+
+        <section class="container tool-container">
+            <div class="input-group">
+                <label for="keyword-input" style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Enter your
+                    niche or keyword:</label>
+                <input type="text" id="keyword-input" placeholder="e.g., coffee, tech, fashion" />
+                <button id="generate-btn" class="primary-btn" style="width: 100%;">Generate Names</button>
+            </div>
+
+            <div id="results" class="result-box hidden">
+                <h3 style="margin-bottom: 0.5rem;">Business Name Ideas:</h3>
+                <ul id="names-list"
+                    style="list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                </ul>
+            </div>
+        </section>
+
+        <!-- AdSense Placeholder -->
+        <div class="container"
+            style="text-align: center; margin: 2rem 0; background: var(--border); padding: 1rem; border-radius: 0.5rem;">
+            <p style="color: var(--text-scnd); font-size: 0.875rem;">Advertisement</p>
+        </div>
+
+        <section class="container" style="max-width: 800px; margin-top: 4rem;">
+            <h2>Tips for Choosing a Business Name</h2>
+            <p>1. Keep it short and memorable.</p>
+            <p>2. Make it easy to spell and pronounce.</p>
+            <p>3. Ensure the domain name is available.</p>
+            <p>4. Reflect your brand's personality.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TextTools. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        const input = document.getElementById('keyword-input');
+        const btn = document.getElementById('generate-btn');
+        const results = document.getElementById('results');
+        const namesList = document.getElementById('names-list');
+
+        const prefixes = ['The', 'My', 'Our', 'Pro', 'Top', 'Best', 'Smart', 'Elite', 'Prime', 'Ultra', 'Hyper', 'Super', 'Mega', 'Giga'];
+        const suffixes = ['Hub', 'Lab', 'Works', 'Co', 'Inc', 'Solutions', 'Systems', 'Group', 'Agency', 'Studio', 'Spot', 'Zone', 'World', 'Box', 'ify', 'ly', 'ster'];
+        const adjectives = ['Creative', 'Modern', 'Fast', 'Easy', 'Simple', 'Clean', 'Bright', 'Bold', 'Fresh', 'Pure', 'Green', 'Blue', 'Red', 'Gold'];
+
+        function generate() {
+            const keyword = input.value.trim();
+            if (!keyword) return;
+
+            const names = [];
+
+            // Strategy 1: Prefix + Keyword
+            for (let i = 0; i < 3; i++) {
+                const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+                names.push(`${prefix} ${keyword}`);
+            }
+
+            // Strategy 2: Keyword + Suffix
+            for (let i = 0; i < 3; i++) {
+                const suffix = suffixes[Math.floor(Math.random() * suffixes.length)];
+                // Check if suffix starts with vowel and keyword ends with one? Nah, simple concat
+                names.push(`${keyword} ${suffix}`);
+                // Also merged
+                names.push(`${keyword}${suffix}`);
+            }
+
+            // Strategy 3: Adjective + Keyword
+            for (let i = 0; i < 3; i++) {
+                const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+                names.push(`${adj} ${keyword}`);
+            }
+
+            // Shuffle and pick 10
+            const shuffled = names.sort(() => 0.5 - Math.random()).slice(0, 12);
+
+            namesList.innerHTML = shuffled.map(name =>
+                `<li style="background: var(--surface); border: 1px solid var(--border); padding: 0.75rem; border-radius: 0.5rem; text-align: center; font-weight: 500;">${name}</li>`
+            ).join('');
+
+            results.classList.remove('hidden');
+        }
+
+        btn.addEventListener('click', generate);
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') generate();
+        });
+    </script>
+</body>
+
+</html>

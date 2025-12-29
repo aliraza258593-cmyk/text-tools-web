@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hashtag Suggestions Generator - Instagram & TikTok</title>
+    <meta name="description"
+        content="Generate viral hashtag suggestions for Instagram, TikTok, and Twitter. Boost your reach with the best hashtags." />
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="/" class="logo">
+                    <span>✨ TextTools</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/about/">About</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Hashtag Generator</h1>
+                <p>Get trending hashtag ideas for your social media posts.</p>
+            </div>
+        </section>
+
+        <section class="container tool-container">
+            <div class="input-group">
+                <label for="keyword-input" style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Enter a
+                    keyword:</label>
+                <input type="text" id="keyword-input" placeholder="e.g., travel, fitness, food" />
+                <button id="generate-btn" class="primary-btn" style="width: 100%;">Generate Hashtags</button>
+            </div>
+
+            <div id="results" class="result-box hidden">
+                <h3 style="margin-bottom: 0.5rem;">Copy these hashtags:</h3>
+                <div id="tags-list"
+                    style="background: var(--surface); padding: 1rem; border: 1px solid var(--border); border-radius: 0.5rem; color: var(--primary);">
+                </div>
+                <button id="copy-btn" class="primary-btn" style="margin-top: 1rem; background: var(--text-scnd);">Copy
+                    to Clipboard</button>
+            </div>
+        </section>
+
+        <!-- AdSense Placeholder -->
+        <div class="container"
+            style="text-align: center; margin: 2rem 0; background: var(--border); padding: 1rem; border-radius: 0.5rem;">
+            <p style="color: var(--text-scnd); font-size: 0.875rem;">Advertisement</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TextTools. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        const input = document.getElementById('keyword-input');
+        const btn = document.getElementById('generate-btn');
+        const results = document.getElementById('results');
+        const tagsList = document.getElementById('tags-list');
+        const copyBtn = document.getElementById('copy-btn');
+
+        const suffixes = [
+            '', 'life', 'style', 'lover', 'addict', 'gram', 'oftheday', 'daily', 'inspiration', 'goals',
+            'community', 'vibes', 'tips', 'fun', 'happy', 'world', 'blog', 'creator', 'viral', 'trending'
+        ];
+
+        const prefixes = [
+            '#', '#best', '#top', '#my', '#love', '#insta', '#super'
+        ];
+
+        function generate() {
+            const keyword = input.value.trim().replace(/\s+/g, '').toLowerCase();
+            if (!keyword) return;
+
+            const tags = new Set();
+
+            // Generate variations
+            suffixes.forEach(suffix => {
+                tags.add(`#${keyword}${suffix}`);
+            });
+
+            // Add prefix variations
+            prefixes.forEach(prefix => {
+                if (prefix !== '#') tags.add(`${prefix}${keyword}`);
+            });
+
+            // Add some random related generic tags
+            tags.add('#fyp');
+            tags.add('#trending');
+            tags.add('#viral');
+            tags.add('#explorepage');
+
+            tagsList.textContent = Array.from(tags).slice(0, 30).join(' ');
+            results.classList.remove('hidden');
+        }
+
+        function copyToClipboard() {
+            navigator.clipboard.writeText(tagsList.textContent).then(() => {
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => copyBtn.textContent = 'Copy to Clipboard', 2000);
+            });
+        }
+
+        btn.addEventListener('click', generate);
+        copyBtn.addEventListener('click', copyToClipboard);
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') generate();
+        });
+    </script>
+</body>
+
+</html>

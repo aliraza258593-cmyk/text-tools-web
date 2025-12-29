@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - TextTools</title>
+    <meta name="description" content="Get in touch with the TextTools team for support, feedback, or inquiries." />
+  <script type="module" crossorigin src="/assets/style-vm8_bK0d.js"></script>
+  <script type="module" crossorigin src="/assets/main-Dg6ygnW_.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/style-He1ruJs4.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="/" class="logo">
+                    <span>✨ TextTools</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/about/">About</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Contact Us</h1>
+                <p>We'd love to hear from you. Send us a message.</p>
+            </div>
+        </section>
+
+        <section class="container" style="max-width: 600px; padding: 2rem 0;">
+            <div
+                style="background: var(--surface); padding: 2rem; border-radius: var(--radius); border: 1px solid var(--border);">
+                <form onsubmit="event.preventDefault(); alert('Message sent!');">
+                    <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Name</label>
+                    <input type="text" id="name" required placeholder="Your Name">
+
+                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Email</label>
+                    <input type="email" id="email" required placeholder="your@email.com">
+
+                    <label for="message"
+                        style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Message</label>
+                    <textarea id="message" rows="5" required placeholder="How can we help?"></textarea>
+
+                    <button type="submit" class="primary-btn" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <p>Or email us directly at:</p>
+                <a href="mailto:support@texttools.com" style="font-weight: 600;">support@texttools.com</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TextTools. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

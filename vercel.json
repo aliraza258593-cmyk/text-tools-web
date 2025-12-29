@@ -1,0 +1,50 @@
+{
+    "rewrites": [
+        {
+            "source": "/tools/synonym-finder",
+            "destination": "/tools/synonym-finder/index.html"
+        },
+        {
+            "source": "/tools/sentence-simplifier",
+            "destination": "/tools/sentence-simplifier/index.html"
+        },
+        {
+            "source": "/tools/emoji-translator",
+            "destination": "/tools/emoji-translator/index.html"
+        },
+        {
+            "source": "/tools/hashtag-generator",
+            "destination": "/tools/hashtag-generator/index.html"
+        },
+        {
+            "source": "/tools/business-name-generator",
+            "destination": "/tools/business-name-generator/index.html"
+        },
+        {
+            "source": "/blog",
+            "destination": "/blog/index.html"
+        },
+        {
+            "source": "/blog/power-of-synonyms",
+            "destination": "/blog/power-of-synonyms.html"
+        },
+        {
+            "source": "/blog/viral-instagram-hashtags",
+            "destination": "/blog/viral-instagram-hashtags.html"
+        },
+        {
+            "source": "/about",
+            "destination": "/about/index.html"
+        },
+        {
+            "source": "/contact",
+            "destination": "/contact/index.html"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/$1"
+        }
+    ],
+    "cleanUrls": true,
+    "trailingSlash": true
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Synonym & Antonym Finder - Free Online Thesaurus</title>
+    <meta name="description"
+        content="Find synonyms and antonyms instantly with our free online tool. Improve your vocabulary and writing style." />
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="/" class="logo">
+                    <span>✨ TextTools</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/about/">About</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Synonym & Antonym Finder</h1>
+                <p>Enrich your vocabulary instantly. Enter a word to find its matches.</p>
+            </div>
+        </section>
+
+        <section class="container tool-container">
+            <div class="input-group">
+                <label for="word-input" style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Enter a
+                    word:</label>
+                <input type="text" id="word-input" placeholder="e.g., 'happy', 'fast', 'smart'" />
+                <button id="find-btn" class="primary-btn" style="width: 100%;">Find Synonyms</button>
+            </div>
+
+            <div id="results" class="result-box hidden">
+                <div id="synonyms-section">
+                    <h3 style="margin-bottom: 0.5rem;">Synonyms</h3>
+                    <div id="synonyms-list" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
+                </div>
+                <div id="antonyms-section" style="margin-top: 1.5rem;" class="hidden">
+                    <h3 style="margin-bottom: 0.5rem;">Antonyms</h3>
+                    <div id="antonyms-list" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
+                </div>
+            </div>
+
+            <div id="error-msg" class="hidden" style="color: #ef4444; margin-top: 1rem; text-align: center;"></div>
+        </section>
+
+        <!-- AdSense Placeholder -->
+        <div class="container"
+            style="text-align: center; margin: 2rem 0; background: var(--border); padding: 1rem; border-radius: 0.5rem;">
+            <p style="color: var(--text-scnd); font-size: 0.875rem;">Advertisement</p>
+        </div>
+
+        <section class="container" style="max-width: 800px; margin-top: 4rem;">
+            <h2>How to use the Synonym Finder</h2>
+            <p>1. Type a word into the input box above.</p>
+            <p>2. Click the "Find Synonyms" button.</p>
+            <p>3. Browse the list of synonyms and antonyms to find the perfect word for your text.</p>
+            <br>
+            <h2>Why use a Synonym Finder?</h2>
+            <p>Using varied vocabulary makes your writing more engaging and professional. Avoid repetition and find
+                precise words to convey your meaning.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TextTools. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        const input = document.getElementById('word-input');
+        const btn = document.getElementById('find-btn');
+        const results = document.getElementById('results');
+        const synonymsList = document.getElementById('synonyms-list');
+        const antonymsSection = document.getElementById('antonyms-section');
+        const antonymsList = document.getElementById('antonyms-list');
+        const errorMsg = document.getElementById('error-msg');
+
+        async function findWords() {
+            const word = input.value.trim();
+            if (!word) return;
+
+            // Reset UI
+            results.classList.add('hidden');
+            errorMsg.classList.add('hidden');
+            antonymsSection.classList.add('hidden');
+            synonymsList.innerHTML = '';
+            antonymsList.innerHTML = '';
+            btn.disabled = true;
+            btn.textContent = 'Searching...';
+
+            try {
+                // Fetch Synonyms
+                const synRes = await fetch(`https://api.datamuse.com/words?rel_syn=${word}`);
+                const synData = await synRes.json();
+
+                // Fetch Antonyms
+                const antRes = await fetch(`https://api.datamuse.com/words?rel_ant=${word}`);
+                const antData = await antRes.json();
+
+                if (synData.length === 0 && antData.length === 0) {
+                    throw new Error('No words found.');
+                }
+
+                // Render Synonyms
+                if (synData.length > 0) {
+                    synonymsList.innerHTML = synData.slice(0, 15).map(item =>
+                        `<span style="background: var(--bg); border: 1px solid var(--border); padding: 0.25rem 0.5rem; border-radius: 0.25rem;">${item.word}</span>`
+                    ).join('');
+                } else {
+                    synonymsList.innerHTML = '<p>No synonyms found.</p>';
+                }
+
+                // Render Antonyms
+                if (antData.length > 0) {
+                    antonymsSection.classList.remove('hidden');
+                    antonymsList.innerHTML = antData.slice(0, 15).map(item =>
+                        `<span style="background: var(--bg); border: 1px solid var(--border); padding: 0.25rem 0.5rem; border-radius: 0.25rem;">${item.word}</span>`
+                    ).join('');
+                }
+
+                results.classList.remove('hidden');
+            } catch (err) {
+                errorMsg.textContent = 'Could not find words. Please try again.';
+                errorMsg.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Find Synonyms';
+            }
+        }
+
+        btn.addEventListener('click', findWords);
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') findWords();
+        });
+    </script>
+</body>
+
+</html>
